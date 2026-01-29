@@ -1,1 +1,26 @@
-spring.application.name=springboot-devops-demo
+server:
+  port: ${PORT:8080}
+  shutdown: graceful
+
+spring:
+  application:
+    name: springboot-devops-demo
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+  server:
+    port: ${MANAGEMENT_PORT:${PORT:8080}}
+
+logging:
+  level:
+    root: INFO
